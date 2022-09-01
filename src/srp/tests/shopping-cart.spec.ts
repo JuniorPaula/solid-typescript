@@ -41,4 +41,13 @@ describe('ShoppingCart', () => {
     const isEmpty = sut.isEmpty();
     expect(isEmpty).toBe(true);
   });
+
+  test('Should clear a cart item on success', async () => {
+    const sut = makeSut();
+    sut.addItems({ name: 'teste2', price: 3 });
+    sut.addItems({ name: 'teste3', price: 6 });
+    sut.clear();
+    const result = sut.getItems();
+    expect(result.length).toBe(0);
+  });
 });
