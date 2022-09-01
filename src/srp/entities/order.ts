@@ -3,8 +3,8 @@ import {
   IsEmpty,
   OrderStatus,
 } from './interfaces/shopping-cart-protocols';
-import { Messaging } from '../services/messaging';
-import { Persistency } from '../services/persistency';
+import { SendMessageProtocols } from '../protocols/messaging';
+import { PersistencyProtocols } from '../protocols/persistency';
 
 export class Order {
   private orderStatus: OrderStatus = 'open';
@@ -12,8 +12,8 @@ export class Order {
   constructor(
     private readonly isEmpty: IsEmpty,
     private readonly clear: Clear,
-    private readonly messaging: Messaging,
-    private readonly persistency: Persistency,
+    private readonly messaging: SendMessageProtocols,
+    private readonly persistency: PersistencyProtocols,
   ) {}
 
   getOrderStatus(): OrderStatus {
