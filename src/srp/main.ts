@@ -7,7 +7,7 @@ import { Product } from './entities/product';
 const shoppingCart = new ShoppingCart();
 const messaging = new Messaging();
 const persistency = new Persistency();
-const order = new Order(shoppingCart, messaging, persistency);
+const order = new Order(shoppingCart, shoppingCart, messaging, persistency);
 
 const camiseta = new Product('Camiseta', 49.9);
 const bermuda = new Product('Bermuda', 79);
