@@ -1,6 +1,11 @@
-import { CartItems } from './interfaces/shopping-cart-protocols';
+import {
+  CartItems,
+  Clear,
+  IsEmpty,
+  ShoppingCartProtocols,
+} from './interfaces/shopping-cart-protocols';
 
-export class ShoppingCart {
+export class ShoppingCart implements ShoppingCartProtocols, IsEmpty, Clear {
   private readonly items: CartItems[] = [];
 
   addItems(item: CartItems): void {
