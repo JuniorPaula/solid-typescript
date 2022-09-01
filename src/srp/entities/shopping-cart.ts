@@ -17,7 +17,7 @@ export class ShoppingCart implements ShoppingCartProtocols, IsEmpty, Clear {
   }
 
   removeItem(index: number): void {
-    this.items.slice(index, 1);
+    this.items.splice(index, 1);
   }
 
   total(): number {

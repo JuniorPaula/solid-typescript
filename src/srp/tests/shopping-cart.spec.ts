@@ -19,4 +19,12 @@ describe('ShoppingCart', () => {
     const result = sut.getItems();
     expect(result).toEqual([{ name: 'teste1', price: 2.5 }]);
   });
+
+  test('Should remove items on success', async () => {
+    const sut = makeSut();
+    const result = sut.getItems();
+    sut.addItems({ name: 'teste2', price: 3 });
+    sut.removeItem(0);
+    expect(result).toEqual([]);
+  });
 });
