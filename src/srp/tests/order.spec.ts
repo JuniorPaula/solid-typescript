@@ -76,4 +76,12 @@ describe('Order', () => {
     sut.checkout();
     expect(spy).toBeCalled();
   });
+
+  test('Should call sendMesasge', async () => {
+    const { sut, messagingStub, isEmptyStub } = makeSut();
+    jest.spyOn(isEmptyStub, 'isEmpty').mockReturnValueOnce(false);
+    const spy = jest.spyOn(messagingStub, 'sendMessage');
+    sut.checkout();
+    expect(spy).toHaveBeenCalledWith('Seu pedido foi recebido');
+  });
 });
