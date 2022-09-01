@@ -35,4 +35,10 @@ describe('ShoppingCart', () => {
     const total = sut.total();
     expect(total).toBe(9);
   });
+
+  test('Should return true if cart items to be empty', async () => {
+    const sut = makeSut();
+    const isEmpty = sut.isEmpty();
+    expect(isEmpty).toBe(true);
+  });
 });
