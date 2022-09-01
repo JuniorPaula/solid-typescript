@@ -27,4 +27,12 @@ describe('ShoppingCart', () => {
     sut.removeItem(0);
     expect(result).toEqual([]);
   });
+
+  test('Should total() return a correct value for price sum', async () => {
+    const sut = makeSut();
+    sut.addItems({ name: 'teste2', price: 3 });
+    sut.addItems({ name: 'teste3', price: 6 });
+    const total = sut.total();
+    expect(total).toBe(9);
+  });
 });
