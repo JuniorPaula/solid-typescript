@@ -69,4 +69,11 @@ describe('Order', () => {
     const orderStatus = sut.getOrderStatus();
     expect(orderStatus).toBe('open');
   });
+
+  test('Should call isEmpty', async () => {
+    const { sut, isEmptyStub } = makeSut();
+    const spy = jest.spyOn(isEmptyStub, 'isEmpty');
+    sut.checkout();
+    expect(spy).toBeCalled();
+  });
 });
