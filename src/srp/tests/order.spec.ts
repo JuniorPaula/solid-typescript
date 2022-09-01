@@ -92,4 +92,12 @@ describe('Order', () => {
     sut.checkout();
     expect(spy).toBeCalled();
   });
+
+  test('Should call clear', async () => {
+    const { sut, clearStub, isEmptyStub } = makeSut();
+    jest.spyOn(isEmptyStub, 'isEmpty').mockReturnValueOnce(false);
+    const spy = jest.spyOn(clearStub, 'clear');
+    sut.checkout();
+    expect(spy).toBeCalled();
+  });
 });
