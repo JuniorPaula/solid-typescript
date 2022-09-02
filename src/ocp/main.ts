@@ -3,8 +3,10 @@ import { Order } from './entities/order';
 import { Persistency } from './services/persistency';
 import { ShoppingCart } from './entities/shopping-cart';
 import { Product } from './entities/product';
+import { PercentDiscount } from './usecases/discounts/fifty-percent';
 
-const shoppingCart = new ShoppingCart();
+const discount = new PercentDiscount(0.1);
+const shoppingCart = new ShoppingCart(discount);
 const messaging = new Messaging();
 const persistency = new Persistency();
 const order = new Order(shoppingCart, shoppingCart, messaging, persistency);
@@ -19,5 +21,6 @@ shoppingCart.addItems(boné);
 
 console.log(shoppingCart.getItems());
 console.log(shoppingCart.total());
+console.log(shoppingCart.totalWithDiscount());
 order.checkout();
 console.log(order.getOrderStatus());

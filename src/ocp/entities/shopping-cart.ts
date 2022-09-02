@@ -1,12 +1,14 @@
+import { DiscountProtocol } from '../protocols/discount';
 import {
   CartItems,
   Clear,
   IsEmpty,
-  ShoppingCartProtocols,
 } from './interfaces/shopping-cart-protocols';
 
-export class ShoppingCart implements ShoppingCartProtocols, IsEmpty, Clear {
+export class ShoppingCart implements IsEmpty, Clear {
   private readonly items: CartItems[] = [];
+
+  constructor(private readonly discount: DiscountProtocol) {}
 
   addItems(item: CartItems): void {
     this.items.push(item);
@@ -22,6 +24,10 @@ export class ShoppingCart implements ShoppingCartProtocols, IsEmpty, Clear {
 
   total(): number {
     return +this.items.reduce((ac, value) => ac + value.price, 0).toFixed(2);
+  }
+
+  totalWithDiscount(): number {
+    return this.discount.calculate(this.total());
   }
 
   isEmpty(): boolean {

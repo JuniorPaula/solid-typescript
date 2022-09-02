@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-typescript",
+  "name": "solid",
   "version": "1.0.0",
-  "description": "boilerplate para projetos typescript",
+  "description": "estudo de casos SOLID",
   "main": "index.js",
   "scripts": {
     "test": "jest --passWithNoTests",

@@ -1,13 +1,25 @@
 import { CartItems } from '../entities/interfaces/shopping-cart-protocols';
 import { ShoppingCart } from '../entities/shopping-cart';
+import { DiscountProtocol } from '../protocols/discount';
 
 const fakeItems = (): CartItems => ({
   name: 'teste1',
   price: 2.5,
 });
 
+const fakeDiscount = (): DiscountProtocol => {
+  class DiscountStub implements DiscountProtocol {
+    calculate(price: number): number {
+      return price - price * 0.5;
+    }
+  }
+
+  return new DiscountStub();
+};
+
 const makeSut = (): ShoppingCart => {
-  const sut = new ShoppingCart();
+  const discountStub = fakeDiscount();
+  const sut = new ShoppingCart(discountStub);
   return sut;
 };
 
