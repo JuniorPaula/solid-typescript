@@ -17,15 +17,23 @@ const fakeDiscount = (): DiscountProtocol => {
   return new DiscountStub();
 };
 
-const makeSut = (): ShoppingCart => {
+type SutTypes = {
+  sut: ShoppingCart;
+  discountStub: DiscountProtocol;
+};
+
+const makeSut = (): SutTypes => {
   const discountStub = fakeDiscount();
   const sut = new ShoppingCart(discountStub);
-  return sut;
+  return {
+    sut,
+    discountStub,
+  };
 };
 
 describe('ShoppingCart', () => {
   test('Should add items on success', async () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
     const items = fakeItems();
     sut.addItems(items);
     const result = sut.getItems();
@@ -33,7 +41,7 @@ describe('ShoppingCart', () => {
   });
 
   test('Should remove items on success', async () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
     const result = sut.getItems();
     sut.addItems({ name: 'teste2', price: 3 });
     sut.removeItem(0);
@@ -41,7 +49,7 @@ describe('ShoppingCart', () => {
   });
 
   test('Should total() return a correct value for price sum', async () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
     sut.addItems({ name: 'teste2', price: 3 });
     sut.addItems({ name: 'teste3', price: 6 });
     const total = sut.total();
@@ -49,17 +57,25 @@ describe('ShoppingCart', () => {
   });
 
   test('Should return true if cart items to be empty', async () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
     const isEmpty = sut.isEmpty();
     expect(isEmpty).toBe(true);
   });
 
   test('Should clear a cart item on success', async () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
     sut.addItems({ name: 'teste2', price: 3 });
     sut.addItems({ name: 'teste3', price: 6 });
     sut.clear();
     const result = sut.getItems();
     expect(result.length).toBe(0);
+  });
+
+  test('Should return a total with discount', async () => {
+    const { sut, discountStub } = makeSut();
+    sut.addItems({ name: 'teste2', price: 100 });
+    jest.spyOn(discountStub, 'calculate');
+    const discount = sut.totalWithDiscount();
+    expect(discount).toBe(50);
   });
 });
