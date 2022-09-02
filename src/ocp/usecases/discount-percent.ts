@@ -1,4 +1,4 @@
-import { DiscountProtocol } from '../../protocols/discount';
+import { DiscountProtocol } from '../protocols/discount';
 
 export class PercentDiscount implements DiscountProtocol {
   constructor(public readonly discount: number = 0) {}

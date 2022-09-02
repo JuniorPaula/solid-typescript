@@ -3,7 +3,7 @@ import { Order } from './entities/order';
 import { Persistency } from './services/persistency';
 import { ShoppingCart } from './entities/shopping-cart';
 import { Product } from './entities/product';
-import { PercentDiscount } from './usecases/discounts/fifty-percent';
+import { PercentDiscount } from './usecases/discount-percent';
 
 const discount = new PercentDiscount(0.1);
 const shoppingCart = new ShoppingCart(discount);
