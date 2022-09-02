@@ -6,4 +6,10 @@ describe('Discount Percent', () => {
     const total = sut.calculate(50);
     expect(total).toBe(50);
   });
+
+  test('Should return total with discount if discount percent are provided', async () => {
+    const sut = new PercentDiscount(0.5);
+    const total = sut.calculate(50);
+    expect(total).toBe(25);
+  });
 });
