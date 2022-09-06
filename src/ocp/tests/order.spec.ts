@@ -1,3 +1,4 @@
+import { CustomerProtocol } from '../entities/interfaces/customer-protocols';
 import { Clear, IsEmpty } from '../entities/interfaces/shopping-cart-protocols';
 import { Order } from '../entities/order';
 import { SendMessageProtocols } from '../protocols/messaging';
@@ -39,12 +40,26 @@ const fakePersistency = (): PersistencyProtocols => {
   return new PersistencyStub();
 };
 
+const fakeCustomer = (): CustomerProtocol => {
+  class CustomerStub implements CustomerProtocol {
+    getName(): string {
+      return 'fake name';
+    }
+    getIDN(): string {
+      return '000.000.000-00';
+    }
+  }
+
+  return new CustomerStub();
+};
+
 type SutTypes = {
   sut: Order;
   isEmptyStub: IsEmpty;
   clearStub: Clear;
   messagingStub: SendMessageProtocols;
   persistencyStub: PersistencyProtocols;
+  customerStub: CustomerProtocol;
 };
 
 const makeSut = (): SutTypes => {
@@ -52,7 +67,14 @@ const makeSut = (): SutTypes => {
   const clearStub = fakeClear();
   const messagingStub = fakeMessaging();
   const persistencyStub = fakePersistency();
-  const sut = new Order(isEmptyStub, clearStub, messagingStub, persistencyStub);
+  const customerStub = fakeCustomer();
+  const sut = new Order(
+    isEmptyStub,
+    clearStub,
+    messagingStub,
+    persistencyStub,
+    customerStub,
+  );
 
   return {
     sut,
@@ -60,6 +82,7 @@ const makeSut = (): SutTypes => {
     clearStub,
     messagingStub,
     persistencyStub,
+    customerStub,
   };
 };
 
@@ -99,5 +122,13 @@ describe('Order', () => {
     const spy = jest.spyOn(clearStub, 'clear');
     sut.checkout();
     expect(spy).toBeCalled();
+  });
+
+  test('Should return correct name when Customer is called', async () => {
+    const { sut, customerStub, isEmptyStub } = makeSut();
+    jest.spyOn(isEmptyStub, 'isEmpty').mockReturnValueOnce(false);
+    const customerName = jest.spyOn(customerStub, 'getName');
+    sut.checkout();
+    expect(customerName).toHaveReturnedWith('fake name');
   });
 });
