@@ -5,6 +5,7 @@ import {
 } from './interfaces/shopping-cart-protocols';
 import { SendMessageProtocols } from '../protocols/messaging';
 import { PersistencyProtocols } from '../protocols/persistency';
+import { CustomerProtocol } from './interfaces/customer-protocols';
 
 export class Order {
   private orderStatus: OrderStatus = 'open';
@@ -14,6 +15,7 @@ export class Order {
     private readonly clear: Clear,
     private readonly messaging: SendMessageProtocols,
     private readonly persistency: PersistencyProtocols,
+    private readonly customer: CustomerProtocol,
   ) {}
 
   getOrderStatus(): OrderStatus {
@@ -30,5 +32,10 @@ export class Order {
     this.messaging.sendMessage('Seu pedido foi recebido');
     this.persistency.saveOrder();
     this.clear.clear();
+    console.log(`
+      Seu Pedido foi finalizado: \n
+      nome: ${this.customer.getName()}, \n
+      Nº de cadastro: ${this.customer.getIDN()}
+    `);
   }
 }

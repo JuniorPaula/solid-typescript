@@ -4,12 +4,24 @@ import { Persistency } from './services/persistency';
 import { ShoppingCart } from './entities/shopping-cart';
 import { Product } from './entities/product';
 import { PercentDiscount } from './usecases/discount-percent';
+import { IndividualCustomer } from './entities/individual-customer';
 
 const discount = new PercentDiscount(0.1);
 const shoppingCart = new ShoppingCart(discount);
 const messaging = new Messaging();
 const persistency = new Persistency();
-const order = new Order(shoppingCart, shoppingCart, messaging, persistency);
+const individualCustomer = new IndividualCustomer(
+  'Jane',
+  'Doe',
+  '111.222.333-44',
+);
+const order = new Order(
+  shoppingCart,
+  shoppingCart,
+  messaging,
+  persistency,
+  individualCustomer,
+);
 
 const camiseta = new Product('Camiseta', 49.9);
 const bermuda = new Product('Bermuda', 79);
