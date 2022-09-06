@@ -131,4 +131,12 @@ describe('Order', () => {
     sut.checkout();
     expect(customerName).toHaveReturnedWith('fake name');
   });
+
+  test('Should return correct number of the register when Customer is called', async () => {
+    const { sut, customerStub, isEmptyStub } = makeSut();
+    jest.spyOn(isEmptyStub, 'isEmpty').mockReturnValueOnce(false);
+    const customerRegisterNumber = jest.spyOn(customerStub, 'getIDN');
+    sut.checkout();
+    expect(customerRegisterNumber).toHaveReturnedWith('000.000.000-00');
+  });
 });
