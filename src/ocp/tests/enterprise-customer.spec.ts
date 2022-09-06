@@ -1,6 +1,6 @@
 import { EnterpriseCustomer } from '../entities/enterprise-customer';
 
-describe('IndividualCustomer', () => {
+describe('EnterpriseCustomer', () => {
   test('Should returns correct params', async () => {
     const sut = new EnterpriseCustomer('fake name', '11111');
 
