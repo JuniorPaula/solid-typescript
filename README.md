@@ -8,9 +8,11 @@
 
 Este é um Software para estudo de casos utilizando **POO** com Typescript, e leva em conta a lógica de uma carrinho de compras, um pedido e um usuário comprador.
 
-Dentro da pasta `legacy` encontra-se a class `ShoppingCart` onde a propria implementa toda a regra de negócio seguindo o padrao de **MVP**.
+Dentro da pasta `legacy` encontra-se a class `ShoppingCart` onde a própria implementa toda a regra de negócio seguindo o padrao de um **MVP**.
 
-Dentro da pasta `core` encontra-se a "arquitetura - não muito bem definada", da implementação do carrinho de compra refatorado, seguindo o método de desenvolvimento guiado por teste o **TDD**, e os principios do **SOLID**.
+Dentro da pasta `core` encontra-se a "Arquitetura - não muito bem definada", da implementação do carrinho de compras refatorado. Seguindo os métodos de desenvolvimento guiado por testes, o **TDD**, e os princípios do **SOLID**.
+
+A Metodologia de densevolvimento seguindo o **SOLID** facilitou a implementação de testes e a combetura de 100% do código.
 
 As tecnologias utilizadas foram:
 - Typescipt
@@ -20,5 +22,3 @@ Tecnologias de linter:
 - Eslint
 - Pritter
 - Husky
-
-O fato da escrita do código ter seguindo os principios dos **SOLID** facilitou a implementação de testes e a combetura de 100% do código.
